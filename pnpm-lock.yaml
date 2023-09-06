@@ -44,7 +44,7 @@ devDependencies:
     specifier: ^10.9.1
     version: 10.9.1(@types/node@20.5.9)(typescript@5.2.2)
   typescript:
-    specifier: '*'
+    specifier: ^5.1.6
     version: 5.2.2
 
 packages:

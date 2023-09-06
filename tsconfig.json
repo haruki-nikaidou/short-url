@@ -1,19 +1,16 @@
 {
   "compilerOptions": {
-    "target": "es2020",
+    "target": "ES6",
     "module": "ES6",
-    "moduleResolution": "node",
     "outDir": "./dist",
     "rootDir": "./src",
     "strict": true,
     "esModuleInterop": true,
-    "skipLibCheck": true,
-    "allowSyntheticDefaultImports": true
+    "moduleResolution": "Node"
   },
-  "exclude": [
-    "node_modules"
-  ],
   "include": [
-    "src/**/*.ts"
-  ]
+    "src/**/*.ts",
+    "src/types/**/*.d.ts"
+  ],
+  "exclude": ["node_modules"]
 }
