@@ -1,5 +1,5 @@
 import express from "express";
-import generateShort from "./util/generateShort";
+import { generateShort } from "./util/generateShort";
 import ShortUrl from "./util/database";
 
 const app = express();

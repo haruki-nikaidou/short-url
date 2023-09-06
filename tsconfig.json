@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "ESNext",
+    "target": "es2020",
+    "module": "ES6",
     "moduleResolution": "node",
     "outDir": "./dist",
     "strict": true,
@@ -12,7 +12,6 @@
     "node_modules"
   ],
   "include": [
-    "./**/*.ts",
-    "./*.ts"
+    "src/**/*.ts"
   ]
 }

@@ -6,7 +6,7 @@ function sha1(data: string): string {
     return hash.digest("base64");
 }
 
-export default function (url: string): string {
+export function generateShort (url: string): string {
     const sha= sha1(url).slice(0, 6);
     const randomNumber = Math.floor(Math.random() * 1000000);
     const randomNumberString = randomNumber.toString(16).slice(0, 3);
