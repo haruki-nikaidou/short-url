@@ -1,11 +1,12 @@
 import express from "express";
 import { generateShort } from "./util/generateShort";
 import ShortUrl from "./util/database";
+import path from "path";
 
 const app = express();
 app.use(express.json());
 
-const uiPath = __dirname + "/../ui/dist";
+const uiPath = path.join(__dirname, "../ui/dist");
 
 app.post("/shorten", async (req, res) => {
     const { originalUrl } = req.body;
@@ -21,29 +22,32 @@ app.post("/shorten", async (req, res) => {
     });
 });
 
-app.get("/asserts/:filename", async (req, res) => {
+app.get("/assets/:filename", async (req, res) => {
     const {filename} = req.params;
-    const path = uiPath + "/asserts/" + filename;
-    res.sendFile(path, (err) => {
+    const filePath = path.join(uiPath, "assets", filename);
+    res.sendFile(filePath, (err) => {
         if (err) {
+            console.log(err);
             res.status(404).json({ error: "File not found" });
         }
     });
 });
 
 app.get("/", async (req, res) => {
-    const path = uiPath + "/index.html";
-    res.sendFile(path, (err) => {
+    const htmlPath = path.join(uiPath, "index.html");
+    res.sendFile(htmlPath, (err) => {
         if (err) {
+            console.error(err);
             res.status(500).json({ error: "Internal server error" });
         }
     });
 });
 
-app.get("/favicon.ico", async (req, res) => {
-    const path = uiPath + "/favicon.ico";
+app.get("/favicon.svg", async (req, res) => {
+    const path = uiPath + "/favicon.svg";
     res.sendFile(path, (err) => {
         if (err) {
+            console.error(err);
             res.status(404).json({ error: "File not found" });
         }
     });
@@ -60,4 +64,8 @@ app.get("/:shortPath", async (req, res) => {
         return res.status(404).json({ error: "Short URL not found" });
     }
     res.redirect(originalUrl);
+});
+
+app.listen(3000, () => {
+    console.log("Server started on http://localhost:3000");
 });
