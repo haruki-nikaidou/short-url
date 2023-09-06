@@ -1,9 +1,9 @@
 import crypto from "crypto";
 
 function sha1(data: string): string {
-    const hash = crypto.createHash('sha1');
+    const hash = crypto.createHash("sha1");
     hash.update(data);
-    return hash.digest('base64');
+    return hash.digest("base64");
 }
 
 export default function (url: string): string {

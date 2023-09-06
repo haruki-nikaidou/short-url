@@ -1,11 +1,11 @@
-import express from 'express';
+import express from "express";
 import generateShort from "./util/generateShort";
 import ShortUrl from "./util/database";
 
 const app = express();
 app.use(express.json());
 
-app.post('/shorten', async (req, res) => {
+app.post("/shorten", async (req, res) => {
     const { originalUrl } = req.body;
     if (!originalUrl) {
         return res.status(400).json({ error: "Missing originalUrl" });
@@ -19,7 +19,7 @@ app.post('/shorten', async (req, res) => {
     });
 });
 
-app.get('/:shortPath', async (req, res) => {
+app.get("/:shortPath", async (req, res) => {
     const { shortPath } = req.params;
     const shortUrl = await ShortUrl.findOne({ shortPath });
     if (!shortUrl) {
