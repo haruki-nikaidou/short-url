@@ -1,7 +1,7 @@
-import crypto from "crypto";
+import { createHash } from "crypto";
 
 function sha1(data: string): string {
-    const hash = crypto.createHash("sha1");
+    const hash = createHash("sha1");
     hash.update(data);
     return hash.digest("base64");
 }
