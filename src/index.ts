@@ -5,6 +5,8 @@ import ShortUrl from "./util/database";
 const app = express();
 app.use(express.json());
 
+const uiPath = __dirname + "/../ui/dist";
+
 app.post("/shorten", async (req, res) => {
     const { originalUrl } = req.body;
     if (!originalUrl) {
@@ -16,6 +18,34 @@ app.post("/shorten", async (req, res) => {
         res.status(200).json({ shortPath });
     }).catch((err) => {
         res.status(400).json({ error: err.message });
+    });
+});
+
+app.get("/asserts/:filename", async (req, res) => {
+    const {filename} = req.params;
+    const path = uiPath + "/asserts/" + filename;
+    res.sendFile(path, (err) => {
+        if (err) {
+            res.status(404).json({ error: "File not found" });
+        }
+    });
+});
+
+app.get("/", async (req, res) => {
+    const path = uiPath + "/index.html";
+    res.sendFile(path, (err) => {
+        if (err) {
+            res.status(500).json({ error: "Internal server error" });
+        }
+    });
+});
+
+app.get("/favicon.ico", async (req, res) => {
+    const path = uiPath + "/favicon.ico";
+    res.sendFile(path, (err) => {
+        if (err) {
+            res.status(404).json({ error: "File not found" });
+        }
     });
 });
 
