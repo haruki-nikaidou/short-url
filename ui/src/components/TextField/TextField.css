@@ -1,0 +1,22 @@
+.text-box {
+    margin: 0;
+    outline: none;
+
+    width: 100%;
+    padding: 12px 20px;
+    height: 2.5em;
+    box-sizing: border-box;
+    font-size: 18px;
+
+    background-color: #f1f1f1;
+    color: #2a2a2a;
+
+    border-radius: 8px;
+    border: 2px solid #a7a7a7;
+
+    transition: border-color 0.2s ease-in-out;
+}
+
+.text-box:focus {
+    border-color: #626262;
+}

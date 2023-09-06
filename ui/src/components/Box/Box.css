@@ -1,0 +1,6 @@
+.Box {
+    background-color: rgba(255, 231, 231, 0.4);
+    border-radius: 20px;
+    padding: 20px;
+    border: 2px solid #b14e4e;
+}
