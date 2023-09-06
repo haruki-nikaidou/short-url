@@ -6,11 +6,12 @@ import Button from "./components/Button/Button";
 import TextField from "./components/TextField/TextField";
 
 async function getShortUrl(url: string): Promise<string> {
+    const urlBase = window.location.href;
     return new Promise((resolve, reject) => {
         axios.post("/shorten", {
             originalUrl: url
         }).then((response) => {
-            resolve(response.data["shortUrl"]);
+            resolve(urlBase + response.data["shortPath"]);
         }).catch((error) => {
             reject(error);
         });
@@ -26,8 +27,8 @@ export default function App() {
     };
     const onClickShortenButton = async () => {
         try {
-            const shortUrl = await getShortUrl(longUrl());
-            setShortUrl(shortUrl);
+            const shortenUrl = await getShortUrl(longUrl());
+            setShortUrl(shortenUrl);
         } catch (error) {
             console.error(error);
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -46,7 +47,7 @@ export default function App() {
                     <h1>Shorten URL</h1>
                     <TextField placeholder="Enter URL Here" onChange={longUrlChangeListener}/>
                     <Button text="Shorten" onClick={onClickShortenButton} />
-                    <TextField placeholder="Shortened URL" readonly value={shortUrl()}/>
+                    <TextField placeholder="Shortened URL" readonly value={shortUrl}/>
                     <Button text="Copy" onClick={onClickCopyButton} />
                 </div>
             </Box>

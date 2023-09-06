@@ -8,16 +8,33 @@ app.use(express.json());
 
 const uiPath = path.join(__dirname, "../ui/dist");
 
+function isValidUrl(urlString: string): boolean {
+    try {
+        new URL(urlString);
+        return true;
+    } catch (e) {
+        return false;
+    }
+}
+
 app.post("/shorten", async (req, res) => {
     const { originalUrl } = req.body;
     if (!originalUrl) {
         return res.status(400).json({ error: "Missing originalUrl" });
+    }
+    if (!isValidUrl(originalUrl)) {
+        return res.status(400).json({ error: "Invalid originalUrl" });
+    }
+    const tryToFindResult = await ShortUrl.findOne({ originalUrl });
+    if (tryToFindResult) {
+        return res.status(200).json({ shortPath: tryToFindResult.shortPath });
     }
     const shortPath = generateShort(originalUrl);
     const shortUrl = new ShortUrl({ originalUrl, shortPath });
     shortUrl.save().then(() => {
         res.status(200).json({ shortPath });
     }).catch((err) => {
+        console.error(err);
         res.status(400).json({ error: err.message });
     });
 });
