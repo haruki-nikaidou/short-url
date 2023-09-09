@@ -1,14 +1,13 @@
 {
   "name": "short-url",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.0.1",
+  "description": "A simple short url tool with Node.js",
   "type": "commonjs",
   "scripts": {
-    "build": "tsc",
     "start": "ts-node src/index.ts"
   },
   "keywords": [],
-  "author": "",
+  "author": "nikaidou-haruki",
   "license": "MIT",
   "dependencies": {
     "express": "^4.18.2",
