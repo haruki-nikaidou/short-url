@@ -1,4 +1,4 @@
-import { createSignal } from "solid-js";
+import {createSignal, JSX} from "solid-js";
 import axios from "axios";
 import "./App.css";
 import Box from "./components/Box/Box";
@@ -34,6 +34,12 @@ const requestExpireTimeOptions = [
     "never"
 ];
 
+const contentStyle: JSX.CSSProperties = {
+    "min-width": "20em",
+    "width": "30em",
+    "max-width": "80vw",
+};
+
 export default function App() {
     const [shortUrl, setShortUrl] = createSignal("");
     const [longUrl, setLongUrl] = createSignal("");
@@ -63,7 +69,7 @@ export default function App() {
 
     return (
         <div class="content">
-            <Box width="20em">
+            <Box extraStyle={contentStyle}>
                 <div class="column">
                     <h1>Shorten URL</h1>
                     <TextField placeholder="Enter URL Here" onChange={longUrlChangeListener}/>

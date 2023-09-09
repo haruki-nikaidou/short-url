@@ -3,17 +3,13 @@ import "./Box.css";
 
 export interface BoxProps {
     children?: JSX.Element | JSX.Element[];
-    height?: string;
-    width?: string;
+    extraStyle?: JSX.CSSProperties;
 }
 
 export default function Box(props: BoxProps) {
     return (
         <div
-            style={{
-                height: props.height,
-                width: props.width,
-            }}
+            style={props.extraStyle}
             class={"Box"}
         >
             {props.children}
