@@ -68,18 +68,23 @@ export default function App() {
     };
 
     return (
-        <div class="content">
-            <Box extraStyle={contentStyle}>
-                <div class="column">
-                    <h1>Shorten URL</h1>
-                    <TextField placeholder="Enter URL Here" onChange={longUrlChangeListener}/>
-                    <h3>Link expiration after</h3>
-                    <Select items={expireTimeOptions} onChange={onChangeExpireTime}/>
-                    <Button text="Shorten" onClick={onClickShortenButton} />
-                    <TextField placeholder="Shortened URL" readonly value={shortUrl}/>
-                    <Button text="Copy" onClick={onClickCopyButton} />
-                </div>
-            </Box>
-        </div>
+        <>
+            <div class="content">
+                <Box extraStyle={contentStyle}>
+                    <div class="column">
+                        <h1>Shorten URL</h1>
+                        <TextField placeholder="Enter URL Here" onChange={longUrlChangeListener}/>
+                        <h3>Link expiration after</h3>
+                        <Select items={expireTimeOptions} onChange={onChangeExpireTime}/>
+                        <Button text="Shorten" onClick={onClickShortenButton} />
+                        <TextField placeholder="Shortened URL" readonly value={shortUrl}/>
+                        <Button text="Copy" onClick={onClickCopyButton} />
+                    </div>
+                </Box>
+            </div>
+            <footer>
+                This is a open source project. <a href="https://github.com/haruki-nikaidou/short-url">GitHub</a>
+            </footer>
+        </>
     );
 }
