@@ -27,8 +27,15 @@ h3 {
 }
 
 footer {
+    font-family: Arial, sans-serif;
     position: fixed;
     bottom: 0;
     margin-bottom: 1em;
     text-align: center;
+    width: 100%;
+    color: #b14e4e;
+}
+
+footer a {
+    color: #b14e4e;
 }
