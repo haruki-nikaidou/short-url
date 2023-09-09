@@ -2,6 +2,7 @@ import express from "express";
 import { generateShort } from "./util/generateShort";
 import ShortUrl from "./util/database";
 import path from "path";
+import {ErrorResponse, ExpireUnit} from "./types/request";
 
 const app = express();
 app.use(express.json());
@@ -17,25 +18,61 @@ function isValidUrl(urlString: string): boolean {
     }
 }
 
+function getExpireDate(expiresAt: ExpireUnit): Date | undefined {
+    const today = new Date();
+    switch (expiresAt) {
+    case ExpireUnit["1day"]:
+        return new Date(today.setDate(today.getDate() + 1));
+    case ExpireUnit["3days"]:
+        return new Date(today.setDate(today.getDate() + 3));
+    case ExpireUnit.week:
+        return new Date(today.setDate(today.getDate() + 7));
+    case ExpireUnit.never:
+        return undefined;
+    }
+}
+
 app.post("/shorten", async (req, res) => {
+    // get originalUrl and expiresAt from req.body
     const { originalUrl } = req.body;
+    let { expiresAt } = req.body;
+
+    // validate originalUrl
     if (!originalUrl) {
-        return res.status(400).json({ error: "Missing originalUrl" });
+        return res.status(400).json({ error: ErrorResponse["Missing originalUrl"] });
     }
     if (!isValidUrl(originalUrl)) {
-        return res.status(400).json({ error: "Invalid originalUrl" });
+        return res.status(400).json({ error: ErrorResponse["Invalid originalUrl"] });
     }
+
+    // validate expiresAt
+    if (!expiresAt) {
+        expiresAt = ExpireUnit["1day"]; // default
+    }
+    if (!Object.values(ExpireUnit).includes(expiresAt)) {
+        return res.status(400).json({ error: ErrorResponse["Invalid expiresAt"] });
+    }
+
+    // if originalUrl already exists, return shortPath and renew expiresAt
     const tryToFindResult = await ShortUrl.findOne({ originalUrl });
     if (tryToFindResult) {
+        tryToFindResult.expireAt = getExpireDate(expiresAt);
+        tryToFindResult.save();
         return res.status(200).json({ shortPath: tryToFindResult.shortPath });
     }
+
+    // if originalUrl does not exist, generate shortPath and save to database
     const shortPath = generateShort(originalUrl);
-    const shortUrl = new ShortUrl({ originalUrl, shortPath });
+    const shortUrl = new ShortUrl({
+        originalUrl,
+        shortPath,
+        expireAt: getExpireDate(expiresAt)
+    });
     shortUrl.save().then(() => {
         res.status(200).json({ shortPath });
     }).catch((err) => {
         console.error(err);
-        res.status(400).json({ error: err.message });
+        res.status(500).json({ error: err.message });
     });
 });
 

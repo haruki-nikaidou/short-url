@@ -12,5 +12,8 @@ export type addUrlResponse = {
 };
 
 export enum ErrorResponse {
-    "Missing originalUrl", "Invalid originalUrl", "Internal server error"
+    "Missing originalUrl",
+    "Invalid originalUrl",
+    "Internal server error",
+    "Invalid expiresAt",
 }

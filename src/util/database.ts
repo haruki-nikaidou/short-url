@@ -12,9 +12,13 @@ const shortUrlSchema = new mongoose.Schema({
         type: String,
         unique: true,
     },
+    expireAt: {
+        type: Date,
+    }
 });
 
 shortUrlSchema.index({ shortPath: "text", originalUrl: "text"});
+shortUrlSchema.index({ expireAt: 1 }, { expireAfterSeconds: 0 });
 
 const ShortUrl = mongoose.model("ShortUrl", shortUrlSchema);
 
