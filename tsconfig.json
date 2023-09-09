@@ -9,8 +9,7 @@
     "moduleResolution": "Node"
   },
   "include": [
-    "src/**/*.ts",
-    "rollup.config.ts"
+    "src/**/*.ts"
   ],
   "exclude": [
     "node_modules",
