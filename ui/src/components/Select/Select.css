@@ -4,7 +4,7 @@
     color: #b14e4e;
     font-size: 18px;
     padding: 10px 18px;
-    transition: background-color 0.2s, color 0.2s;
+    transition: background-color 0.5s, color 0.5s;
     margin: 0;
     flex-grow: 1;
     box-sizing: revert;
@@ -15,7 +15,7 @@
 }
 
 .select-item:hover {
-    background-color: rgb(255, 171, 171);
+    background-color: rgb(255, 187, 187);
     color: #d36c6c;
 }
 
