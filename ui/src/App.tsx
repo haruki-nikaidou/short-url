@@ -4,6 +4,7 @@ import "./App.css";
 import Box from "./components/Box/Box";
 import Button from "./components/Button/Button";
 import TextField from "./components/TextField/TextField";
+import Select from "./components/Select/Select.tsx";
 
 async function getShortUrl(url: string): Promise<string> {
     const urlBase = window.location.href;
@@ -17,6 +18,13 @@ async function getShortUrl(url: string): Promise<string> {
         });
     });
 }
+
+const expireTimeOptions = [
+    "1d",
+    "3d",
+    "7d",
+    "Never"
+];
 
 export default function App() {
     const [shortUrl, setShortUrl] = createSignal("");
@@ -46,6 +54,8 @@ export default function App() {
                 <div class="column">
                     <h1>Shorten URL</h1>
                     <TextField placeholder="Enter URL Here" onChange={longUrlChangeListener}/>
+                    <h3>Link expiration</h3>
+                    <Select items={expireTimeOptions} />
                     <Button text="Shorten" onClick={onClickShortenButton} />
                     <TextField placeholder="Shortened URL" readonly value={shortUrl}/>
                     <Button text="Copy" onClick={onClickCopyButton} />
