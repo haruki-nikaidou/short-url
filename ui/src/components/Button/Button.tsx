@@ -1,6 +1,6 @@
 import "./Button.css";
 
-type ButtonProps = {
+interface ButtonProps {
     onClick?: () => void;
     text: string;
 }
